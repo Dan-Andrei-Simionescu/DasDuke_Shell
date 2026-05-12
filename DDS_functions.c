@@ -20,7 +20,7 @@ void execution_of_command(char* args[MAX_args_string_size]) {
     return;
 }
 
-void change_directory(char* current_directory, char* last_working_directory, char* args[64]) {
+void change_directory(char* current_directory, char* last_working_directory, char* args[MAX_args_string_size]) {
     getcwd(current_directory, MAX_wd_string_size);
 
     if (strcmp(args[1], "~") == 0) {
