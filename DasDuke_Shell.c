@@ -1,51 +1,38 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/wait.h>
-
-void execution_of_command(char* args[64]) {
-    ssize_t random_pid = fork();
-
-    if (random_pid == -1) {
-        perror("Something went wrong when creating the child process.");
-        exit(EXIT_FAILURE);
-    } else if (random_pid == 0){
-        // Child's Timeline (sees itself as 0)
-        if (execvp(args[0], args) == -1) {
-            perror("Invalid Command, stop all operations");
-            exit(EXIT_FAILURE);
-        }
-    } else {
-        // Parent's Timeline (sees the child as a positive number)
-        wait(NULL);
-    }
-}
+#include "DDS.h"
+#include "colour.h"
 
 int main() {
-    char* string = NULL;
-    size_t length = 0;
-    ssize_t err_code;
+    char* string_command = NULL;
+    size_t length_command = 0;
+    ssize_t err_code_command;
+
+    char string_working_directory[MAX_wd_string_size];
+    void* err_code_wd;
+    char last_working_directory[MAX_wd_string_size] = "";
+
+    printf("\n");
+    red("Welcome to DasDuke Shell!");
+    printf("\n");
 
     while (1) {
-        printf("DasDuke_shell_prompt> ");
-        err_code = getline(&string, &length, stdin);
+        err_code_wd = getcwd(string_working_directory, MAX_wd_string_size);
+        
+        blue("DasDuke_shell_prompt: ");
+        if (err_code_wd != NULL) {
+            green(string_working_directory);
+        }
+        printf("\n      ❯ ");
 
-        if (err_code == -1) {
+        err_code_command = getline(&string_command, &length_command, stdin);
+        if (err_code_command == -1) {
             perror("Getline_Failed (Never Happens).");
             exit(EXIT_FAILURE);
         } else {
-            char* string_cut = strtok(string, " \n\t");
-            int index_str = 0;
             char* args[64];
-            while (string_cut != NULL) {
-                args[index_str] = string_cut;
-                string_cut = strtok(NULL, " \n\t");
-                index_str++;
-            }
-            args[index_str] = NULL;
+            return_args(string_command, args);
             if (strcmp(args[0], "cd") == 0) {
-                chdir(args[1]);
+                char current_directory[MAX_wd_string_size];
+                change_directory(current_directory, last_working_directory, args);
             } else {
                 execution_of_command(args);
             }

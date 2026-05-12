@@ -6,7 +6,7 @@ TARGETS=DasDuke_Shell
 build: $(TARGETS)
 
 DasDuke_Shell: DasDuke_Shell.c
-	$(CC) $(CFLAGS) DasDuke_Shell.c -o $(TARGETS)
+	$(CC) $(CFLAGS) DasDuke_Shell.c DDS.h colour.h DDS_functions.c -o $(TARGETS)
 
 run: build
 	./DasDuke_Shell
