@@ -37,7 +37,7 @@ int main() {
         } else {
             char* string_cut = strtok(string, " \n\t");
             int index_str = 0;
-            char *args[64];
+            char* args[64];
             while (string_cut != NULL) {
                 args[index_str] = string_cut;
                 string_cut = strtok(NULL, " \n\t");
