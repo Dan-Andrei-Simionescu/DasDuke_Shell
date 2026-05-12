@@ -1,6 +1,6 @@
 #include "DDS.h"
 
-void execution_of_command(char* args[64]) {
+void execution_of_command(char* args[MAX_args_string_size]) {
     ssize_t random_pid = fork();
 
     if (random_pid == -1) {
@@ -40,8 +40,11 @@ void change_directory(char* current_directory, char* last_working_directory, cha
     return;
 }
 
-void return_args(char* string_command, char** args) {
+int return_args(char* string_command, char** args) {
     char* string_cut = strtok(string_command, " \n\t");
+    if (string_cut == NULL) {
+        return 0;
+    }
     int index_str = 0;
 
     while (string_cut != NULL) {
@@ -49,7 +52,7 @@ void return_args(char* string_command, char** args) {
         string_cut = strtok(NULL, " \n\t");
         index_str++;
     }
-    args[index_str] = NULL;
+    args[index_str] = '\0';
 
-    return;
+    return index_str;
 }

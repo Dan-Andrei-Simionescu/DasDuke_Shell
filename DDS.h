@@ -4,10 +4,11 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #define MAX_wd_string_size 1024
+#define MAX_args_string_size 1024
 
-void execution_of_command(char* args[64]);
+void execution_of_command(char* args[MAX_args_string_size]);
 void change_directory(char* current_directory, char* last_working_directory, char* args[64]);
-void return_args(char* string_command, char** args);
+int return_args(char* string_command, char** args);
 
 void red(char* text);
 void green(char* text);

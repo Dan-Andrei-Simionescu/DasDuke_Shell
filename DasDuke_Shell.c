@@ -28,8 +28,11 @@ int main() {
             perror("Getline_Failed (Never Happens).");
             exit(EXIT_FAILURE);
         } else {
-            char* args[64];
-            return_args(string_command, args);
+            char* args[MAX_args_string_size];
+            int nr_index = return_args(string_command, args);
+            if (nr_index == 0) {
+                continue;
+            }
             if (strcmp(args[0], "cd") == 0) {
                 char current_directory[MAX_wd_string_size];
                 change_directory(current_directory, last_working_directory, args);
