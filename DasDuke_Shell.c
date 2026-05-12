@@ -14,7 +14,7 @@ void execution_of_command(char* args[64]) {
         // Child's Timeline (sees itself as 0)
         execvp(args[0], args);
         if (execvp(args[0], args) == -1) {
-            perror("Invalid Command, stop all operations.");
+            perror("Invalid Command, stop all operations ->");
             exit(EXIT_FAILURE);
         }
     } else {
