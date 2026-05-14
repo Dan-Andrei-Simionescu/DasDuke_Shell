@@ -19,7 +19,7 @@ void blue(char* text) {
 }
 
 // Other colours to choose from
-// (You'll have to modify yourself the colour of the prints inside main.c)
+// (You'll have to modify the colour yourself for the prints inside DasDuke_Shell.c)
 // (ex: You can modify the colour of the current directory path, or the DasDuke_shell_prompt message etc.)
 
 void yellow(char* text) {
