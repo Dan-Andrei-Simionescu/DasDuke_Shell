@@ -1,10 +1,21 @@
 #include "DDS.h"
+#include "errno.h"
+
+void errors_errno() {
+    if (errno == EAGAIN) {
+        perror("EAGAIN: Cannot create a new process in this instant, try again later.");
+    } else if (errno == ENOMEM) {
+        perror("ENOMEM: Not enough RAM memory on your device.");
+    } else if (errno == ENOSYS) {
+        perror("ENOSYS: Certain system calls may be blocked by a security profile configured by the system administrator.");
+    }
+}
 
 void execution_of_command(char* args[MAX_args_string_size]) {
     ssize_t random_pid = fork();
 
     if (random_pid == -1) {
-        perror("Something went wrong when creating the child process.");
+        errors_errno();
         exit(EXIT_FAILURE);
     } else if (random_pid == 0){
         // Child's Timeline (sees itself as 0)
