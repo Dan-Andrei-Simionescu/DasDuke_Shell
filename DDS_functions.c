@@ -12,7 +12,7 @@ void errors_errno() {
 }
 
 void execution_of_command(char* args[MAX_args_string_size]) {
-    ssize_t random_pid = fork();
+    pid_t random_pid = fork();
 
     if (random_pid == -1) {
         errors_errno();
@@ -34,7 +34,7 @@ void execution_of_command(char* args[MAX_args_string_size]) {
 void change_directory(char* current_directory, char* last_working_directory, char* args[MAX_args_string_size]) {
     getcwd(current_directory, MAX_wd_string_size);
 
-    if (strcmp(args[1], "~") == 0) {
+    if (args[1] == NULL || strcmp(args[1], "~") == 0) {
         char* home = getenv("HOME");
         chdir(home);
         strcpy(last_working_directory, current_directory);
@@ -44,8 +44,11 @@ void change_directory(char* current_directory, char* last_working_directory, cha
             strcpy(last_working_directory, current_directory);
         }
     } else {
-        chdir(args[1]);
-        strcpy(last_working_directory, current_directory);
+        if (chdir(args[1]) != 0) {
+            perror("No such file or directory.");
+        } else {
+            strcpy(last_working_directory, current_directory);
+        }
     }
 
     return;

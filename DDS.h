@@ -3,6 +3,9 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <sys/types.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 #define MAX_wd_string_size 1024
 #define MAX_args_string_size 1024
 

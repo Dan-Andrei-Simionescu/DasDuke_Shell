@@ -3,8 +3,6 @@
 
 int main() {
     char* string_command = NULL;
-    size_t length_command = 0;
-    ssize_t err_code_command;
 
     char string_working_directory[MAX_wd_string_size];
     void* err_code_wd;
@@ -21,13 +19,15 @@ int main() {
         if (err_code_wd != NULL) {
             green(string_working_directory);
         }
-        printf("\n      ❯ ");
-
-        err_code_command = getline(&string_command, &length_command, stdin);
-        if (err_code_command == -1) {
-            perror("Getline_Failed (Never Happens).");
+        string_command = readline("\n      ❯ ");
+        if (string_command == NULL) {
+            perror("Error: Readline failed. Exiting.");
             exit(EXIT_FAILURE);
-        } else {
+        }
+
+        if (*string_command != '\0') {
+            add_history(string_command);
+
             char* args[MAX_args_string_size];
             int nr_index = return_args(string_command, args);
             if (nr_index == 0) {
@@ -40,6 +40,8 @@ int main() {
                 execution_of_command(args);
             }
         }
+
+        free(string_command);
     }
     return 0;
 }
