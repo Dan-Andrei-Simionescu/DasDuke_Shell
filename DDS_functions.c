@@ -3,11 +3,11 @@
 
 void errors_errno() {
     if (errno == EAGAIN) {
-        perror("EAGAIN: Cannot create a new process in this instant, try again later.");
+        printf("EAGAIN: Cannot create a new process in this instant, try again later.");
     } else if (errno == ENOMEM) {
-        perror("ENOMEM: Not enough RAM memory on your device.");
+        printf("ENOMEM: Not enough RAM memory on your device.");
     } else if (errno == ENOSYS) {
-        perror("ENOSYS: Certain system calls may be blocked by a security profile configured by the system administrator.");
+        printf("ENOSYS: Certain system calls may be blocked by a security profile configured by the system administrator.");
     }
 }
 
