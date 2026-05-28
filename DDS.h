@@ -9,6 +9,7 @@
 #define MAX_wd_string_size 1024
 #define MAX_args_string_size 1024
 
+void execute_pipe_command(char* args_left[], char* args_right[]);
 void execution_of_command(char* args[MAX_args_string_size]);
 void errors_errno();
 void change_directory(char* current_directory, char* last_working_directory, char* args[MAX_args_string_size]);

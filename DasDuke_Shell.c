@@ -33,9 +33,34 @@ int main() {
             if (nr_index == 0) {
                 continue;
             }
-            if (strcmp(args[0], "cd") == 0) {
+
+            int pipe_index = -1;
+            for (int i = 0; i < nr_index; i++) {
+                if (strcmp(args[i], "|") == 0) {
+                    pipe_index = i;
+                    break;
+                }
+            }
+            if (pipe_index != -1) {
+                args[pipe_index] = NULL;
+                char **args_right = &(args[pipe_index + 1]);
+                if (strcmp(args_right[0], "grep") == 0) {
+                    for (int i = 0; args_right[i] != NULL; i++) {
+                        int len = strlen(args_right[i]);
+                        if (args_right[i][0] == '"' && args_right[i][len - 1] == '"') {
+                            args_right[i][len - 1] = '\0';
+                            args_right[i]++;
+                        }
+                    }
+                }
+                execute_pipe_command(args, args_right);
+            } else if (strcmp(args[0], "cd") == 0) {
                 char current_directory[MAX_wd_string_size];
                 change_directory(current_directory, last_working_directory, args);
+            } else if (strcmp(args[0], "exit") == 0 || strcmp(args[0], "quit") == 0) {
+                exit(0);
+            } else if (strcmp(args[0], "clear") == 0) {
+                system("clear");
             } else {
                 execution_of_command(args);
             }

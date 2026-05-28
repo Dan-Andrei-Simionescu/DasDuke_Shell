@@ -11,6 +11,47 @@ void errors_errno() {
     }
 }
 
+void execute_pipe_command(char* args_left[], char* args_right[]) {
+    int fildes[2];
+    if (pipe(fildes) == -1) {
+        perror("Pipe command failed");
+        return;
+    }
+
+    pid_t random_pid_one = fork();
+    if (random_pid_one == -1) {
+        errors_errno();
+        exit(EXIT_FAILURE);
+    } else if (random_pid_one == 0) {
+        // duplicate write part to STDOUT_FILENO
+        dup2(fildes[1], STDOUT_FILENO);
+        close(fildes[1]);
+        close(fildes[0]);
+        execvp(args_left[0], args_left);
+        perror("args_left failed!");
+        exit(EXIT_FAILURE);
+    }
+
+    pid_t random_pid_two = fork();
+    if (random_pid_two == -1) {
+        errors_errno();
+        exit(EXIT_FAILURE);
+    } else if (random_pid_two == 0) {
+        // duplicate read part to STDIN_FILENO
+        dup2(fildes[0], STDIN_FILENO);
+        close(fildes[0]);
+        close(fildes[1]);
+        execvp(args_right[0], args_right);
+        perror("args_right failed!");
+        exit(EXIT_FAILURE);
+    }
+
+    close(fildes[1]);
+    close(fildes[0]);
+    wait(NULL);
+    wait(NULL);
+}
+
 void execution_of_command(char* args[MAX_args_string_size]) {
     pid_t random_pid = fork();
 

@@ -1,1 +1,13 @@
-DasDuke Shell - Simple shell that uses fork/execvp/wait functions, it also has the 'cd' command included (functions used: getcwd, chdir), with 'cd -' and 'cd ~' navigation. The shell has history functionality, users can navigate through previous commands using up/down arrow keys.
+DasDuke Shell - Simple shell written in C, built on top of fork, execvp and wait functions.
+
+DasDuke Shell features (commands I had to explicitly implement):
+
+                - 'cd', 'cd -' and 'cd ~';
+
+                - pipe operator '|' support;
+
+                - readline-based history with arrow key support;
+
+                - 'exit/quit';
+
+                - 'clear';
