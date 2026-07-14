@@ -1,0 +1,19 @@
+<svg viewBox="0 0 640 130" xmlns="http://www.w3.org/2000/svg" font-family="'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace">
+  <!-- plain terminal background, no window chrome -->
+  <rect x="0" y="0" width="640" height="130" fill="#181a20"/>
+
+  <text x="16" y="30" font-size="15" fill="#f14c4c" font-weight="bold">Welcome to DasDuke Shell!</text>
+
+  <text x="16" y="70" font-size="15">
+    <tspan fill="#3b8eea">DasDuke_shell_prompt: </tspan><tspan fill="#4ec9b0">/home/user</tspan>
+  </text>
+
+  <text x="16" y="102" font-size="15" fill="#d4d4d4">
+    <tspan fill="#7a7f8a">      &#10095; </tspan>ls -la | grep ".c"
+  </text>
+
+  <!-- blinking block cursor after the command -->
+  <rect x="234" y="90" width="8" height="16" fill="#d4d4d4">
+    <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
+  </rect>
+</svg>
