@@ -2,6 +2,13 @@
 
 A small Unix command-line shell written in C, built on top of `fork`, `execvp`, `pipe`, and `wait`. It runs external programs, chains two commands together with a pipe, supports a built-in `cd`, and lets you browse previous commands with the up/down arrow keys.
 
+```ansi
+[0;31mWelcome to DasDuke Shell![0m
+
+[0;34mDasDuke_shell_prompt: [0m[0;32m/home/user[0m
+      ❯ ls -la | grep ".c"
+```
+
 ## Features
 
 - **Command execution** — parses the typed line into arguments and runs it as a child process via `fork()` + `execvp()`, while the parent waits for it to finish.
