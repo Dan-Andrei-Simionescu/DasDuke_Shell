@@ -33,18 +33,18 @@ The project is split into a few small, focused files:
 - `readline` development headers/library installed
 
 On Debian/Ubuntu:
-```bash
+```console
 sudo apt install build-essential libreadline-dev
 ```
 
 On macOS (Homebrew):
-```bash
+```console
 brew install readline
 ```
 
 ## Build & run
 
-```bash
+```console
 # Clone the repository
 git clone https://github.com/Dan-Andrei-Simionescu/DasDuke_Shell.git
 cd DasDuke_Shell
@@ -63,7 +63,7 @@ The Makefile compiles with `-Wall -Wextra -std=c99 -D_GNU_SOURCE` and links agai
 
 ## Usage examples
 
-```bash
+```console
 ❯ ls -la
 ❯ cd Projects
 ❯ cd ~                    # go to $HOME
