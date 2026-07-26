@@ -48,7 +48,7 @@ brew install readline
 
 ```console
 # Clone the repository
-git clone https://github.com/Dan-Andrei-Simionescu/DasDuke_Shell.git
+git clone https://github.com/Dan-Andrei-Simionescu/DasDuke_shell.git
 cd DasDuke_Shell
 
 # Build
