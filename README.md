@@ -16,16 +16,16 @@ A small Unix command-line shell written in C, built on top of `fork`, `execvp`, 
 - **`clear`** — clears the terminal (shells out to `system("clear")`).
 - **Command history** — powered by GNU Readline (`add_history`), so previous commands can be recalled with the up/down arrow keys.
 - **Live prompt** — shows the current working directory before every command, refreshed with `getcwd()` on each loop iteration.
-- **Colored output** — a small helper library (`colour.h`) wraps ANSI escape codes into simple functions (`red`, `green`, `blue`, `yellow`, `cyan`, `magenta`, `white`, `black`) used to color the welcome message and prompt.
+- **Colored output** — a small helper library (`src/colour.h`) wraps ANSI escape codes into simple functions (`red`, `green`, `blue`, `yellow`, `cyan`, `magenta`, `white`, `black`) used to color the welcome message and prompt.
 - **Error handling** — invalid commands are reported via `perror`, and `fork()` failures are translated into readable messages for `EAGAIN`, `ENOMEM`, and `ENOSYS`.
 
 ## How it works
 
 The project is split into a few small, focused files:
-- `DasDuke_Shell.c` -> main read–parse–execute loop: prints the prompt, reads a line with Readline, tokenizes it, detects a pipe, and dispatches to the pipe executor, the built-in `cd`/`exit`/`clear`, or the general executor.
-- `DDS_functions.c` -> Core shell logic — `execution_of_command` (fork/execvp/wait), `execute_pipe_command` (two-process pipe), `change_directory` (the `cd` built-in), `return_args` (tokenizer), and `errors_errno` (fork error messages).
-- `DDS.h` -> Shared includes, constants (`MAX_wd_string_size`, `MAX_args_string_size`), and function declarations.
-- `colour.h` -> ANSI color helper functions used for terminal output.
+- `src/DasDuke_Shell.c` -> main read–parse–execute loop: prints the prompt, reads a line with Readline, tokenizes it, detects a pipe, and dispatches to the pipe executor, the built-in `cd`/`exit`/`clear`, or the general executor.
+- `src/DDS_functions.c` -> Core shell logic — `execution_of_command` (fork/execvp/wait), `execute_pipe_command` (two-process pipe), `change_directory` (the `cd` built-in), `return_args` (tokenizer), and `errors_errno` (fork error messages).
+- `src/DDS.h` -> Shared includes, constants (`MAX_wd_string_size`, `MAX_args_string_size`), and function declarations.
+- `src/colour.h` -> ANSI color helper functions used for terminal output.
 - `Makefile` -> Build rules for compiling and linking the project against `readline`.
 
 ## Requirements
